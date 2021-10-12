@@ -2,60 +2,80 @@ import tkinter as tk
 from tkinter import *
 from tkinter import filedialog as fd
 from tkinter import scrolledtext
+from tkinter import messagebox
 import socket
 import sys
 import os
 
-def selectFile():
-    files = fd.askopenfilenames(parent=root, title="Choose a file")
-    # lab2.config(text=files)
+def mainWindow():
+    splash_screen.destroy()
 
-def sendFile():
-    pass
+    def sendFile():
+        # messagebox.showinfo("showinfo", "This is just a Information")
+        frame2.pack(fill="both", expand=1)
+        frame1.forget()
 
-def receiveFile():
-    pass
+    def receiveFile():
+        pass
 
-soc = socket.socket()
+    def selectFile():
+        files = fd.askopenfilenames(parent=root, title="Choose a file")
+        # lab2.config(text=files)
+    
+    soc = socket.socket()
 
-root = tk.Tk()
-root.geometry("480x370")
-root.title("File Sharing")
+    root = tk.Tk()
+    root.geometry("480x370")
+    root.title("File Sharing")
+    # root.resizable(False, False)
 
-# frame1 = tk.Frame(root, width=400, height=400,bg="pink")
-# frame1.grid()
-# frame1.pack()
+    frame1 = tk.Frame(root, bg="pink", width=400, height=370)
+    # frame1.grid()
+    frame1.pack(fill="both")
 
-# btnSend = tk.Button(frame1, text="Send", width=30, height=2, command=sendFile)
-# btnSend.grid(row=0, column=0)
+    btnSend = tk.Button(frame1, text="Send", width=20, height=2, command=sendFile)
+    btnSend.grid(row=0, column=0)
 
-# btnReceive = tk.Button(frame1, text="Receive", width=30, height=2, command=receiveFile)
-# btnReceive.grid(row=0, column=1)
+    btnReceive = tk.Button(frame1, text="Receive", width=20, height=2, command=receiveFile)
+    btnReceive.grid(row=0, column=1)
 
-frame2 = tk.Frame(root, width=400, height=400, bg="pink")
-frame2.grid(padx=0, pady=0)
-frame2.pack()
+    btnChat = tk.Button(frame1, text="Chat", width=20, height=2, command=receiveFile)
+    btnChat.grid(row=0, column=2)
 
-lab1 = tk.Label(frame2, text="Connection ID", width=20, height=3, bg="red")
-lab1.grid(row=0, column=0, padx=0)
+    frame2 = tk.Frame(root, width=400, height=400, bg="pink")
 
-lab2 = tk.Label(frame2, text=socket.gethostname(), width=20, height=3, bg="yellow")
-lab2.grid(row=0, column=1, padx=0)
+    lab1 = tk.Label(frame2, text="Connection ID", width=20, height=3, bg="red")
+    lab1.grid(row=0, column=0, padx=0)
 
-filename = scrolledtext.ScrolledText(frame2, width=50, height=10, bg="orange")
-# filename.insert("this is a string","")
-# filename.place(width=500, height=500)
-filename.grid(row=1, column=0, padx=1, columnspan=2)
+    lab2 = tk.Label(frame2, text=socket.gethostname(), width=20, height=3, bg="yellow")
+    lab2.grid(row=0, column=1, padx=0)
 
-btn = tk.Button(frame2, text="Browse", command=selectFile, width=20, height=2)
-# btn.pack()
-btn.grid(row=3, column=0, padx=1)
+    filename = scrolledtext.ScrolledText(frame2, width=50, height=10, bg="orange")
+    # filename.insert("this is a string","")
+    # filename.place(width=500, height=500)
+    filename.grid(row=1, column=0, padx=1, columnspan=2)
 
-root.mainloop()
+    btn = tk.Button(frame2, text="Browse", command=selectFile, width=20, height=2)
+    # btn.pack()
+    btn.grid(row=3, column=0, padx=1)
+    
+    root.mainloop()
+
+splash_screen = Tk()
+splash_screen.geometry("600x300")
+splash_screen.config(bg="lightblue")
+
+label1 = Label(splash_screen, text="File Sharing", bg="lightblue", font=("", 30))
+label1.place(x=300, y=120, anchor="center")
+
+splash_screen.after(500, mainWindow)
+splash_screen.overrideredirect(True)
+
+mainloop()
 
 # import socket
 # from tkinter import filedialog
-# s = socket.socket()
+# s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # host = socket.gethostname()
 # port = 8034
 # s.bind((host, port))
