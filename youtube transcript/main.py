@@ -184,7 +184,7 @@ def mainWindow():
 
 #------------------------------------------ Splash Screen Code ---------------------------------------------------
 splash_screen = Tk()
-splash_screen.geometry("400x400")
+splash_screen.geometry("780x630")
 splash_screen.overrideredirect(True)
 
 greet = Label(splash_screen, text="Youtube Transcript", height= 5)
